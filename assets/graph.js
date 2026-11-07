@@ -1,0 +1,78 @@
+// Perspective-project a small 3D scene into SVG. Navigation stays in stable HTML.
+(() => {
+  const svg = document.querySelector('#knowledge-graph');
+  if (!svg) return;
+  const ns = 'http://www.w3.org/2000/svg';
+  const motion = matchMedia('(prefers-reduced-motion: reduce)');
+  const button = document.querySelector('#graph-pause');
+  const panel = document.querySelector('.graph-panel');
+  const palette = ['#b69aff', '#83dbc1', '#edb58b', '#94bfff'];
+  const nodes = [
+    {label: 'Mini Research', x: 0, y: 0, z: 0, color: 0, root: true},
+    {label: 'Design decisions', x: -165, y: -86, z: 40, color: 0},
+    {label: 'Accessibility', x: 145, y: -108, z: -38, color: 1},
+    {label: 'Static publishing', x: 130, y: 113, z: 50, color: 2},
+    {label: 'The source', x: -140, y: 104, z: -55, color: 3},
+    {label: 'Field note 001', x: 40, y: -15, z: 125, color: 0}
+  ];
+  for (let i = 0; i < 30; i++) {
+    const cluster = i % 4 + 1, parent = nodes[cluster], angle = i * 2.39996;
+    nodes.push({x: parent.x + Math.cos(angle) * (35 + i % 4 * 13), y: parent.y + Math.sin(angle) * (30 + i % 3 * 14), z: Math.sin(i * 1.7) * 100, color: parent.color, parent: cluster});
+  }
+  const links = [[0,1],[0,2],[0,3],[0,4],[0,5],[1,5],[2,5],[3,5],[3,4]];
+  nodes.forEach((node, i) => { if (node.parent) { links.push([node.parent, i]); if (i > 9) links.push([i, i - 4]); } });
+  function element(tag, attributes, parent) {
+    const el = document.createElementNS(ns, tag);
+    Object.entries(attributes).forEach(([key, value]) => el.setAttribute(key, value));
+    parent.append(el);
+    return el;
+  }
+  const edges = links.map(([a,b]) => ({a,b, el: element('line', {stroke: palette[nodes[b].color], 'stroke-width': a === 0 ? 1.1 : .65, 'stroke-opacity': .25}, document.querySelector('#graph-edges'))}));
+  nodes.forEach(node => {
+    const g = element('g', {}, document.querySelector('#graph-nodes'));
+    if (node.label) element('circle', {r: node.root ? 48 : 24, fill: 'url(#node-glow)'}, g);
+    element('circle', {r: node.root ? 8 : node.label ? 4.5 : 2, fill: palette[node.color]}, g);
+    if (node.root) element('circle', {r: 17, fill: 'none', stroke: palette[0], 'stroke-opacity': .5}, g);
+    if (node.label) {
+      const text = element('text', {y: node.root ? 35 : 22, 'text-anchor': 'middle', class: node.root ? 'graph-label graph-root-label' : 'graph-label'}, g);
+      text.textContent = node.label;
+    }
+    node.el = g;
+  });
+  let angle = -.18, elapsed = 0, frame = null, last = null, paused = motion.matches, visible = true;
+  function draw() {
+    nodes.forEach(node => {
+      const x = node.x * Math.cos(angle) + node.z * Math.sin(angle);
+      const z = -node.x * Math.sin(angle) + node.z * Math.cos(angle);
+      const y = node.y * Math.cos(.2) - z * Math.sin(.2);
+      const scale = 650 / (650 + z);
+      node.px = 320 + x * scale; node.py = 225 + y * scale;
+      node.el.setAttribute('transform', `translate(${node.px.toFixed(2)} ${node.py.toFixed(2)})`);
+      node.el.style.opacity = node.label ? 1 : Math.max(.3, Math.min(1, scale - .2));
+    });
+    edges.forEach(({a,b,el}) => {
+      el.setAttribute('x1', nodes[a].px); el.setAttribute('y1', nodes[a].py);
+      el.setAttribute('x2', nodes[b].px); el.setAttribute('y2', nodes[b].py);
+    });
+  }
+  function tick(time) {
+    frame = null;
+    if (last !== null) elapsed += Math.min(time - last, 50);
+    // A bounded orbit gives depth without turning labels into an unreadable edge-on view.
+    angle = -.18 + Math.sin(elapsed * .00016) * .4;
+    last = time; draw(); frame = requestAnimationFrame(tick);
+  }
+  function sync() {
+    if (frame !== null) cancelAnimationFrame(frame);
+    frame = null; last = null;
+    button.textContent = paused ? 'Play motion' : 'Pause motion';
+    button.setAttribute('aria-pressed', String(paused));
+    if (!paused && visible && !document.hidden) frame = requestAnimationFrame(tick);
+  }
+  button.hidden = false;
+  button.addEventListener('click', () => { paused = !paused; sync(); });
+  motion.addEventListener('change', () => { paused = motion.matches; sync(); });
+  document.addEventListener('visibilitychange', sync);
+  if ('IntersectionObserver' in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }).observe(panel);
+  draw(); panel.classList.add('graph-ready'); sync();
+})();
