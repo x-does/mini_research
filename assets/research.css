@@ -1,0 +1,28 @@
+/* Research reading tables and the two-entry catalog share the site's theme. */
+.catalog-grid{grid-template-columns:minmax(0,1fr)}
+.catalog-grid>.project-card{min-width:0}
+.catalog-grid>.topic-map{grid-column:1/-1}
+.card-topics{display:grid;gap:8px;margin-top:10px}
+.card-topics .topic-node{min-width:0}
+.research-article .article-header h1{max-width:950px;font-size:clamp(38px,6vw,68px)}
+.research-article .article-deck{max-width:800px}
+.research-article .prose{min-width:0;overflow-wrap:anywhere}
+.research-article .prose h2{font-size:clamp(25px,3vw,36px);line-height:1.2;scroll-margin-top:24px}
+.research-article .prose h3{font-size:23px;line-height:1.4}
+.research-article .prose pre{white-space:pre-wrap;overflow-wrap:anywhere;font-size:13px}
+.research-article .prose a{text-decoration:underline;text-underline-offset:3px}
+.table-scroll{overflow-x:auto;margin:24px 0;border:1px solid var(--line);border-radius:10px}
+.table-scroll:focus-visible{outline:3px solid var(--green);outline-offset:4px}
+.table-scroll table{border-collapse:collapse;min-width:640px;width:100%;font-size:14px;line-height:1.65}
+.table-scroll th,.table-scroll td{padding:14px 16px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.table-scroll th{background:var(--surface-alt);color:var(--ink)}
+.table-scroll td{color:var(--muted)}
+.table-scroll tr:last-child td{border-bottom:0}
+.research-actions{display:flex;flex-wrap:wrap;gap:10px;margin:24px 0}
+.research-actions a{padding:10px 14px;border:1px solid var(--line);border-radius:8px;min-height:44px;background:var(--surface)}
+.budget-chart{margin:24px 0;padding:20px;background:var(--surface-alt);border:1px solid var(--line);border-radius:10px}
+.budget-chart figcaption{font-size:13px;color:var(--muted);margin-top:14px}
+.budget-row{display:grid;grid-template-columns:80px minmax(0,1fr) 54px;gap:10px;align-items:center;font-size:13px;margin:14px 0}
+.budget-track{height:20px;background:var(--line);border-radius:4px}
+.budget-bar{height:20px;background:var(--green);border-radius:4px}
+@media(min-width:1000px){.catalog-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.catalog-grid>.project-card>.feature-link{min-height:440px}.card-topics{grid-template-columns:1fr 1fr}.research-article .article-layout{grid-template-columns:210px minmax(0,850px)}}

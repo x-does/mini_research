@@ -6,8 +6,8 @@ adaptContents();
 wide.addEventListener('change', adaptContents);
 const query = new URL(location.href).searchParams.get('from');
 if (query) {
-  document.querySelectorAll('a[href="../#explore"]').forEach(link => {
-    const url = new URL('../', location.href);
+  document.querySelectorAll('a[href="../#explore"], a[data-explore-home]').forEach(link => {
+    const url = new URL(link.getAttribute('href'), location.href);
     url.searchParams.set('q', query);
     url.hash = 'explore';
     link.href = url.href;

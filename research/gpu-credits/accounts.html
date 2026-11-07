@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Choose a compute account, authorize the training environment, and prepare a private data handoff.">
+  <title>The accounts. The access. The first experiment. — Mini Research</title>
+  <link rel="icon" href="../../assets/favicon.svg" type="image/svg+xml">
+  <script src="../../assets/theme.js"></script>
+  <link rel="stylesheet" href="../../assets/style.css"><link rel="stylesheet" href="../../assets/modern.css"><link rel="stylesheet" href="../../assets/research.css">
+  <script src="../../assets/article.js" defer></script>
+</head>
+<body class="research-article">
+  <a class="skip-link" href="#article">Skip to article</a>
+  <header class="site-header wrap"><a class="wordmark" href="../../"><span class="brand-symbol" aria-hidden="true">✳</span> mini research.</a><nav aria-label="Main navigation"><a href="../../#explore" data-explore-home>Explore</a><a class="about-link" href="../">The notebook</a><button class="theme-toggle" type="button" hidden>Theme: system</button></nav></header>
+  <main class="wrap">
+    <header class="article-header"><div class="breadcrumb"><a href="../../#explore" data-explore-home>All explorations</a><span>/</span><a href="./">Research 002</a></div><p class="eyebrow">PERSONAL AI · SOURCES CHECKED 7 NOV 2026</p><h1>The accounts. The access. The first experiment.</h1><p class="article-deck">Choose a compute account, authorize the training environment, and prepare a private data handoff.</p><div class="article-meta"><span>Research 002 · Setup companion</span><span>Updated <time datetime="2026-11-07">7 Nov 2026</time></span></div><nav class="research-actions" aria-label="Research resources"><a href="./">Research overview</a><a href="accounts.html">Accounts &amp; access →</a><a href="https://github.com/x-does/mini_research/blob/main/research/gpu-credits/ACCOUNTS.md">Markdown source ↗</a></nav></header>
+    <div class="article-layout"><details class="toc" id="contents"><summary>On this page</summary><a href="#what-to-create-first">What to create first</a><a href="#modal-give-the-local-training-environment-access">Modal: give the local training environment access</a><a href="#lightning-alternative-give-a-private-studio-access">Lightning alternative: give a private Studio access</a><a href="#optional-evaluationmodel-download-access">Optional evaluation/model-download access</a><a href="#give-the-agent-the-data-it-actually-needs">Give the agent the data it actually needs</a><a href="#execution-sequence-after-access-is-ready">Execution sequence after access is ready</a></details><article class="prose" id="article"><nav class="reading-navigation" aria-label="Reading navigation"><a href="#contents">Contents ↑</a><a href="../../#explore" data-explore-home>All explorations ←</a></nav><p>Setup guide checked <strong>7 November 2026</strong>. Companion to the <a href="./">research and deployment plan</a>. Target: an independently runnable personal agent on devices with <strong>less than 8 GB total RAM</strong>. Account creation and credential provisioning have not been performed.</p>
+<section id="what-to-create-first"><h2>What to create first</h2>
+<p>Choose <strong>one compute provider</strong> initially. Modal is the preferred programmable training route if adding a payment method is acceptable. Lightning is the alternative, with a smaller no-card introductory allowance. No inference account is required to train open weights or evaluate locally.</p>
+<div class="table-scroll" role="region" aria-label="Research comparison table" tabindex="0"><table>
+<thead>
+<tr>
+<th>Account</th>
+<th>Needed now?</th>
+<th>Create / sign in</th>
+<th>What to enable</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Modal</td>
+<td>Preferred compute route; choose this or Lightning</td>
+<td><a href="https://modal.com/">Modal</a> → Get started</td>
+<td>Starter workspace, required payment method, verify monthly allowance, configure spend budget, authorize local CLI</td>
+</tr>
+<tr>
+<td>Lightning AI</td>
+<td>Alternative compute route</td>
+<td><a href="https://lightning.ai/">Lightning</a> → Open app / sign up</td>
+<td>Free account, phone verification, confirm 5 registration credits; card adds 25 credits if desired; create a private Studio</td>
+</tr>
+<tr>
+<td>Hugging Face</td>
+<td>Optional for the proposed public, ungated model downloads</td>
+<td><a href="https://huggingface.co/join">Hugging Face signup</a></td>
+<td>Required only if the chosen repository is gated/private or private Hub storage is desired. Accept any gated model terms yourself. Paid PRO is unnecessary for public model downloads</td>
+</tr>
+<tr>
+<td>Groq</td>
+<td>Optional hosted evaluation only</td>
+<td><a href="https://console.groq.com/">Groq Console</a></td>
+<td>Stay on Free Plan; create a dedicated API key and check account limits. Start with synthetic/public tasks</td>
+</tr>
+<tr>
+<td>Fireworks</td>
+<td>Optional promotion experiment, outside the default tiny-model path</td>
+<td><a href="https://app.fireworks.ai/signup">Fireworks signup</a></td>
+<td>Verify Muse promotion eligibility, export and license before dataset upload. Sampling/serving can cost money; its 30B model is not the on-device target</td>
+</tr>
+</tbody>
+</table></div>
+<p>OpenRouter is an optional alternative to Groq, not another required account. Cerebras, Runpod, Google Cloud and Together are <strong>not necessary for the first experiment</strong>; their card, deposit, quota or access conditions add complexity. Do not activate time-limited trials until the dataset and smoke test are ready.</p>
+</section><section id="modal-give-the-local-training-environment-access"><h2>Modal: give the local training environment access</h2>
+<ol>
+<li>Create your account using your own email/SSO and complete provider verification. Enter billing details directly on Modal's site; do not share passwords, card details or recovery codes with the coding agent.</li>
+<li>In Usage &amp; Billing, confirm the Starter allowance and payment method. Configure both the workspace usage budget (before credits) and a custom spend limit (net charges after credits) before launching workloads. Set the net spend limit to zero for a credit-only experiment if the account permits it, and verify the saved setting. Modal documents that the spend limit stops workloads that would incur extra out-of-pocket charges; its default can permit charges beyond the included credits. Include CPU/RAM costs in the estimate. <a href="https://modal.com/docs/guide/billing">Billing</a>, <a href="https://modal.com/docs/guide/budgets">budgets</a>.</li>
+<li>On the <strong>machine that will launch training</strong>, use an environment outside this public repository:</li>
+</ol>
+<pre><code class="language-bash">python3 -m venv &quot;$HOME/.venvs/personal-llm&quot;
+source &quot;$HOME/.venvs/personal-llm/bin/activate&quot;
+python -m pip install modal
+modal token new --expires-in 7d
+</code></pre>
+<ol start="4">
+<li>Complete the browser authorization opened by the CLI. Select the intended workspace. This gives that local environment permission to act as your Modal identity; it is not permission for unrelated workloads. Keep credentials in the CLI's user configuration, outside the repository. The token command supports expiry and verifies credentials by default. <a href="https://modal.com/docs/cli/latest/token">Official token commands</a>.</li>
+<li>Tell the coding agent <strong>which workspace/environment is authorized</strong>, that local CLI authentication is complete, and the maximum total spend for the experiment. The agent should verify identity without displaying credentials. Never paste the contents of a token/config file into chat.</li>
+<li>Start with synthetic data and a short GPU job. Verify checkpoint download, local reload and actual billed cost before the private corpus is involved. Export artifacts through a <a href="https://modal.com/docs/guide/volumes">Modal Volume</a> or another explicit download path.</li>
+</ol>
+<p>If the CLI runs on another machine, a browser login on your laptop does not authenticate that machine automatically. Run authorization for the intended execution environment. If a token must be provisioned remotely, use the coding application's secure secret-entry facility, one value per secret, rather than a normal message or a committed <code>.env</code> file. Do not grant billing administration or unrelated account access just to launch a training run. Revoke temporary credentials after the experiment.</p>
+</section><section id="lightning-alternative-give-a-private-studio-access"><h2>Lightning alternative: give a private Studio access</h2>
+<ol>
+<li>Register and complete phone verification. Confirm the credited balance and expiry in the account. Adding a card for extra credits is optional; confirm billing settings before doing so. <a href="https://lightning.ai/pricing">Pricing and registration-credit FAQ</a>.</li>
+<li>Create a <strong>private</strong> Studio and verify its visibility before adding files. Select an affordable GPU using the live credit estimate. Confirm session limits; the free plan lists four-hour sessions for some larger GPUs.</li>
+<li>For an interactive first experiment, run reviewed training code inside the authenticated Studio terminal. An external API credential is not required merely to run code manually in that terminal. Never make the Studio public to give the agent access.</li>
+<li>For unattended execution by this coding environment, first identify the supported Lightning authentication/integration and its access scope. This research has not verified a particular external API-token flow; do not supply a broad token on the assumption that it is required. Use secure secret entry if an integration needs credentials. Alternatively, keep execution manual in the Studio and bring back redacted metrics and the exported adapter.</li>
+<li>Copy only the approved, curated dataset into private storage. Checkpoint frequently, verify resume and download the result before credits/session time run out. Confirm deletion/retention behavior for training datasets and checkpoints.</li>
+</ol>
+</section><section id="optional-evaluationmodel-download-access"><h2>Optional evaluation/model-download access</h2>
+<p><strong>Groq:</strong> create a separate key in <a href="https://console.groq.com/keys">API Keys</a>. The SDK reads <code>GROQ_API_KEY</code>; provision it through secure secret entry or an execution-environment secret store. Use Free Plan account limits and a pinned model, with synthetic/public evaluation prompts initially. This grants inference access, not training compute. <a href="https://console.groq.com/docs/quickstart">Official quickstart</a>.</p>
+<p><strong>Hugging Face:</strong> first attempt the public, ungated checkpoint download without login. If authentication is necessary, create a token limited to the required repositories with read access. A write token is needed only if uploading artifacts to a private Hub repository is an explicit part of the workflow. Keep personal training data off public Hub datasets and model cards. <a href="https://huggingface.co/docs/hub/security-tokens">Token documentation</a>.</p>
+<p><strong>Fireworks:</strong> create an API key only if pursuing the optional managed experiment. Before granting dataset access, verify promotion activation, separately billed evaluation, exact downloadable artifacts, compatible base weights/license and independent serving feasibility. Its free SFT promotion does not establish a deployable sub-8-GB checkpoint. <a href="https://docs.fireworks.ai/fine-tuning/training-api/cookbook/muse-glimmer">Promotion cookbook</a>.</p>
+</section><section id="give-the-agent-the-data-it-actually-needs"><h2>Give the agent the data it actually needs</h2>
+<p>Keep exports and credentials <strong>outside this repository</strong>: <code>research/</code> is copied into the public GitHub Pages artifact. Raw data is not needed to read or publish this research.</p>
+<p>Provide paths and limits, not conversation contents or secrets, using this handoff template:</p>
+<pre><code class="language-text">Compute route: Modal / Lightning
+Authorized workspace or private Studio: &lt;name&gt;
+Execution environment: &lt;this machine or named remote environment&gt;
+Authentication: completed locally / needs secure secret entry / manual Studio only
+Maximum additional spend: &lt;amount and currency; 0 is valid&gt;
+Raw export directory: &lt;absolute path outside the public repository&gt;
+Formats: &lt;JSON / JSONL / HTML / Markdown / other&gt;
+Allowed data sources: &lt;specific exports/projects&gt;
+Excluded sources: &lt;private work, third-party messages, credentials, etc.&gt;
+Cloud upload scope: synthetic only / specified curated and redacted subset
+Artifact output directory: &lt;private absolute path outside the public repository&gt;
+Target device: &lt;model, OS, RAM; GPU/VRAM if present&gt;
+Offline requirement: &lt;fully offline / optional remote fallback&gt;
+</code></pre>
+<p>The first data action is a local metadata inventory: file counts, formats, token estimates and trajectory availability. Then curate, group duplicates, split by conversation/project/time, and build held-out tasks. Do not upload the entire archive simply because an account has credits.</p>
+</section><section id="execution-sequence-after-access-is-ready"><h2>Execution sequence after access is ready</h2>
+<ol>
+<li>Verify account/workspace and allowance without printing secrets.</li>
+<li>Run a synthetic GPU smoke test and verify export/reload with measured cost.</li>
+<li>Inventory the approved local exports; prepare a curated pilot and isolated evaluation set.</li>
+<li>Evaluate retrieval and the unchanged small dense model; train a dense adapter control and a Granite small-MoE experiment if runtime conversion works.</li>
+<li>Export and quantize, then measure the actual model on the target device: memory, sustained speed, tool-task success and quantization quality loss.</li>
+<li>Retain the better deployable result; remove temporary cloud resources and revoke temporary access.</li>
+</ol>
+<p>No model quality, successful training run or phone compatibility is implied by finishing account setup.</p></section><div class="article-end"><a href="../../#explore" data-explore-home>Back to all explorations ←</a></div></article></div>
+  </main>
+  <footer class="site-footer wrap"><a class="wordmark" href="../../">✳ mini research.</a><a href="accounts.html">Account setup →</a><a href="../../#explore" data-explore-home>All explorations ←</a></footer>
+</body>
+</html>

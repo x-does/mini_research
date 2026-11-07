@@ -4,8 +4,8 @@ A static, independent collection of research, small websites, and digital experi
 
 ## Research notes
 
-- [Free compute for a personal, agentic small language model](research/gpu-credits/README.md) — verified credit offers and a deployment plan for devices below 8 GB RAM.
-- [Accounts and access checklist](research/gpu-credits/ACCOUNTS.md) — signup links, training-environment authentication and private-data handoff steps.
+- [Free compute for a personal, agentic small language model](research/gpu-credits/) — verified credit offers and a deployment plan for devices below 8 GB RAM.
+- [Accounts and access checklist](research/gpu-credits/accounts.html) — signup links, training-environment authentication and private-data handoff steps.
 
 ## Preview
 
@@ -48,3 +48,7 @@ The header cycles **system → dark → light → system**. The preference appli
 ## Licensing
 
 No project license has been chosen. Choose one before inviting reuse. Instrument Serif and DM Sans have separate font licenses.
+
+## Research page publishing
+
+GPU research is served at `research/gpu-credits/index.html`, with the account guide at `accounts.html`. The homepage card, search topics, and graph connect it to the collection. Existing Pages deployment already copies the full `research/` tree. Markdown remains the editable source; after changing it, run `python3 tools/render-gpu-research.py` (requires Python Markdown) and commit the generated HTML. GitHub Pages serves the HTML directly; no runtime Markdown conversion or build dependency is required.

@@ -22,6 +22,9 @@ function render() {
     project.hidden = !visible;
     if (visible) matches++;
   }
+  document.querySelectorAll('.topic-map[data-project]').forEach(map => {
+    map.hidden = document.getElementById(map.dataset.project).hidden;
+  });
   results.hidden = matches === 0;
   empty.hidden = matches !== 0;
   clear.hidden = search.value.length === 0;
@@ -34,7 +37,7 @@ function render() {
   const topicNames = matchedTopics.map(topic => topic.querySelector('span:nth-child(2)').childNodes[0].textContent.trim());
   document.querySelector('#map-caption').textContent = query && topicNames.length
     ? `Matching ${topicNames.length === 1 ? 'section' : 'sections'}: ${topicNames.join(', ')}. Open a highlighted topic to jump there.`
-    : 'Each branch opens a section of the same field note.';
+    : 'Each branch opens a section of The making of Mini Research.';
   if (query && topicNames.length) count.textContent += ` · ${topicNames.length} matching ${topicNames.length === 1 ? 'section' : 'sections'}`;
   shortcuts.replaceChildren();
   const suggestedTopics = matchedTopics.length ? matchedTopics : partialTopics;
@@ -52,8 +55,8 @@ function render() {
     const explanation = document.createElement('p');
     explanation.className = 'match-explanation';
     explanation.textContent = partialTopics.length
-      ? 'Your words match across this exploration. These sections cover some of them; no single section matches every word.'
-      : 'Matched this exploration’s title, summary, or catalog keywords.';
+      ? 'Your words match across the catalog. These sections cover some of them; no single section matches every word.'
+      : 'Matched an exploration’s title, summary, or catalog keywords.';
     shortcuts.prepend(explanation);
     shortcuts.hidden = false;
   }
@@ -67,7 +70,7 @@ function render() {
     else destination.searchParams.delete('from');
     link.href = destination.href;
   });
-  document.querySelector('#empty-description').textContent = `No exploration titles, summaries, or connected topics match “${query}”. Try design, accessibility, or publishing.`;
+  document.querySelector('#empty-description').textContent = `No exploration titles, summaries, or connected topics match “${query}”. Try GPU credits, accounts, design, or accessibility.`;
 }
 
 function resetSearch() {
