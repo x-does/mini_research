@@ -10,6 +10,12 @@ Start with **Modal for programmable training compute**, **Lightning for an intro
 
 Fine-tune an existing checkpoint rather than pretraining an MoE from scratch. Build a retrieval baseline, a small dense adapter baseline, and a genuinely small MoE experiment. Choose using held-out agent tasks and serving cost. Personal conversation volume and quality have not yet been measured; there is no evidence yet that they justify an architecture or training budget.
 
+## Training from 250k-context conversations
+
+The source conversations are described as approximately **250k tokens of context**; their actual exported lengths remain unmeasured. Start with **Qwen3-0.6B + LoRA + local retrieval**, extracting short, verified episodes with only the history available before each target action. Preserve distant dependencies through source-backed memory and retrieval rather than feeding a full conversation into each training sequence. Keep Granite’s small MoE as a measured alternative.
+
+Read the [training method and long-conversation data pipeline](TRAINING.md) for causal summaries, duplicate snapshot handling, a proposed pilot recipe and held-out evaluation. The initial training/deployment sequence budget remains 2,048 tokens; source length does not imply that the deployed model must attend to 250k tokens.
+
 ## Three different resources
 
 | Resource | What it buys | Relevant use |

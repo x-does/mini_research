@@ -15,7 +15,7 @@ FOLDER = ROOT / 'research/gpu-credits'
 def render(source, output, title, deck, label):
     text = (FOLDER / source).read_text()
     text = re.sub(r'^# .+\n', '', text, count=1)
-    text = text.replace('](README.md)', '](./)').replace('](ACCOUNTS.md)', '](accounts.html)')
+    text = text.replace('](README.md)', '](./)').replace('](ACCOUNTS.md)', '](accounts.html)').replace('](TRAINING.md)', '](training.html)')
     # Python Markdown fences must start at the root; preserve numbered-list restarts.
     text = re.sub(r'^ {3}(.*)$', r'\1', text, flags=re.M)
     body = markdown.markdown(text, extensions=['tables', 'fenced_code', 'toc', 'sane_lists'])
@@ -58,7 +58,7 @@ def render(source, output, title, deck, label):
   <a class="skip-link" href="#article">Skip to article</a>
   <header class="site-header wrap"><a class="wordmark" href="../../"><span class="brand-symbol" aria-hidden="true">✳</span> mini research.</a><nav aria-label="Main navigation"><a href="../../#explore" data-explore-home>Explore</a><a class="about-link" href="../">The notebook</a><button class="theme-toggle" type="button" hidden>Theme: system</button></nav></header>
   <main class="wrap">
-    <header class="article-header"><div class="breadcrumb"><a href="../../#explore" data-explore-home>All explorations</a><span>/</span><a href="./">Research 002</a></div><p class="eyebrow">PERSONAL AI · SOURCES CHECKED 7 NOV 2026</p><h1>{html.escape(title)}</h1><p class="article-deck">{html.escape(deck)}</p><div class="article-meta"><span>{label}</span><span>Updated <time datetime="2026-11-07">7 Nov 2026</time></span></div><nav class="research-actions" aria-label="Research resources"><a href="./">Research overview</a><a href="accounts.html">Accounts &amp; access →</a><a href="https://github.com/x-does/mini_research/blob/main/research/gpu-credits/{source}">Markdown source ↗</a></nav></header>
+    <header class="article-header"><div class="breadcrumb"><a href="../../#explore" data-explore-home>All explorations</a><span>/</span><a href="./">Research 002</a></div><p class="eyebrow">PERSONAL AI · SOURCES CHECKED 7 NOV 2026</p><h1>{html.escape(title)}</h1><p class="article-deck">{html.escape(deck)}</p><div class="article-meta"><span>{label}</span><span>Updated <time datetime="2026-11-07">7 Nov 2026</time></span></div><nav class="research-actions" aria-label="Research resources"><a href="./">Research overview</a><a href="training.html">Training method →</a><a href="accounts.html">Accounts &amp; access →</a><a href="https://github.com/x-does/mini_research/blob/main/research/gpu-credits/{source}">Markdown source ↗</a></nav></header>
     <div class="article-layout"><details class="toc" id="contents"><summary>On this page</summary>{toc}</details><article class="prose" id="article"><nav class="reading-navigation" aria-label="Reading navigation"><a href="#contents">Contents ↑</a><a href="../../#explore" data-explore-home>All explorations ←</a></nav>{body}<div class="article-end"><a href="../../#explore" data-explore-home>Back to all explorations ←</a></div></article></div>
   </main>
   <footer class="site-footer wrap"><a class="wordmark" href="../../">✳ mini research.</a><a href="accounts.html">Account setup →</a><a href="../../#explore" data-explore-home>All explorations ←</a></footer>
@@ -73,3 +73,6 @@ if __name__ == '__main__':
            'Signup credits, training compute and a practical experiment for an agent that runs on devices below 8 GB RAM.', 'Research 002 · Exploratory findings')
     render('ACCOUNTS.md', 'accounts.html', 'The accounts. The access. The first experiment.',
            'Choose a compute account, authorize the training environment, and prepare a private data handoff.', 'Research 002 · Setup companion')
+
+    render('TRAINING.md', 'training.html', 'A small model. A long conversation.',
+           'A LoRA and retrieval experiment that turns 250k-context conversations into short, verified training episodes.', 'Research 002 · Proposed training method')

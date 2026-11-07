@@ -65,6 +65,8 @@ Authentication: completed locally / needs secure secret entry / manual Studio on
 Maximum additional spend: <amount and currency; 0 is valid>
 Raw export directory: <absolute path outside the public repository>
 Formats: <JSON / JSONL / HTML / Markdown / other>
+Conversation lengths: <actual token counts or configured 250k context limit>
+History completeness: <unique messages / rolling snapshots / compacted or missing turns>
 Allowed data sources: <specific exports/projects>
 Excluded sources: <private work, third-party messages, credentials, etc.>
 Cloud upload scope: synthetic only / specified curated and redacted subset
@@ -74,6 +76,8 @@ Offline requirement: <fully offline / optional remote fallback>
 ```
 
 The first data action is a local metadata inventory: file counts, formats, token estimates and trajectory availability. Then curate, group duplicates, split by conversation/project/time, and build held-out tasks. Do not upload the entire archive simply because an account has credits.
+
+For the proposed LoRA recipe and handling of 250k-context source conversations, read the [training method](TRAINING.md).
 
 ## Execution sequence after access is ready
 
