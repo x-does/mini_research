@@ -2,6 +2,11 @@
 
 A static, independent collection of research, small websites, and digital experiments.
 
+## Research notes
+
+- [Free compute for a personal, agentic small language model](research/gpu-credits/README.md) — verified credit offers and a deployment plan for devices below 8 GB RAM.
+- [Accounts and access checklist](research/gpu-credits/ACCOUNTS.md) — signup links, training-environment authentication and private-data handoff steps.
+
 ## Preview
 
 Run `python3 -m http.server 8000` from the repository root and visit `http://localhost:8000`. No build or dependency installation is needed. Google Fonts are optional; local font fallbacks work offline.
