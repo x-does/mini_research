@@ -41,7 +41,7 @@ The first field note is design rationale, not an empirical study. Shop prototype
 
 ## Connected graph and themes
 
-The graph uses a fixed set of three-dimensional coordinates, perspective projection, and time-based `requestAnimationFrame` rotation. No WebGL library, API, backend, or build step is required. The scene is decorative; the real, stationary topic links below it support touch, keyboards, and no-JavaScript browsing. It pauses offscreen and in background tabs. Reduced motion starts it paused; the visitor can explicitly play or pause it.
+The full-size, borderless hero graph uses fixed three-dimensional coordinates, perspective projection, and continuous time-based `requestAnimationFrame` rotation. Desktop mouse position and phone tilt influence the orbit with smooth interpolation. Phones calibrate tilt to their initial position; browsers requiring sensor permission show an **Enable tilt** button. Denied or unavailable sensors leave automatic motion working. No WebGL library, API, backend, or build step is required. The scene is decorative; stationary topic links below it support touch, keyboards, and no-JavaScript browsing. It pauses offscreen and in background tabs. Reduced motion softens speed and input travel; a manual pause control remains available.
 
 The header cycles **system → dark → light → system**. The preference applies to the landing page and field note and is saved only in this browser. Blocked storage does not prevent switching themes. With JavaScript disabled, the system color scheme still applies.
 

@@ -5,6 +5,8 @@
   const ns = 'http://www.w3.org/2000/svg';
   const motion = matchMedia('(prefers-reduced-motion: reduce)');
   const button = document.querySelector('#graph-pause');
+  const tiltButton = document.querySelector('#graph-tilt');
+  const hint = document.querySelector('#graph-hint');
   const panel = document.querySelector('.graph-panel');
   const palette = ['#b69aff', '#83dbc1', '#edb58b', '#94bfff'];
   const nodes = [
@@ -39,13 +41,64 @@
     }
     node.el = g;
   });
-  let angle = -.18, elapsed = 0, frame = null, last = null, paused = motion.matches, visible = true;
+  let angle = -.18, pitch = .2, elapsed = 0, frame = null, last = null, paused = false, visible = true;
+  const target = {x: 0, y: 0};
+  const input = {x: 0, y: 0};
+  const clamp = value => Math.max(-1, Math.min(1, value));
+  // Mouse influence is page-wide, without taking over touch scrolling.
+  window.addEventListener('pointermove', event => {
+    if (event.pointerType !== 'mouse') return;
+    target.x = clamp(event.clientX / innerWidth * 2 - 1);
+    target.y = clamp(event.clientY / innerHeight * 2 - 1);
+  }, {passive: true});
+  document.documentElement.addEventListener('pointerleave', () => { target.x = target.y = 0; });
+  window.addEventListener('blur', () => { target.x = target.y = 0; });
+
+  let baseline = null, listening = false;
+  function orientation(event) {
+    if (!Number.isFinite(event.beta) || !Number.isFinite(event.gamma)) return;
+    if (!baseline) baseline = {beta: event.beta, gamma: event.gamma};
+    const x = clamp((event.gamma - baseline.gamma) / 30);
+    const y = clamp((event.beta - baseline.beta) / 30);
+    const rotation = (screen.orientation?.angle ?? window.orientation ?? 0) * Math.PI / 180;
+    target.x = clamp(x * Math.cos(rotation) + y * Math.sin(rotation));
+    target.y = clamp(y * Math.cos(rotation) - x * Math.sin(rotation));
+    hint.textContent = 'Tilt your phone to move the constellation';
+    tiltButton.hidden = true;
+  }
+  function listenForTilt() {
+    if (listening) return;
+    listening = true;
+    window.addEventListener('deviceorientation', orientation, {passive: true});
+  }
+  const sensor = window.DeviceOrientationEvent;
+  if (matchMedia('(pointer: coarse)').matches) hint.textContent = 'Automatic orbit · a constellation of connected ideas';
+  if (sensor && matchMedia('(pointer: coarse)').matches && window.isSecureContext) {
+    if (typeof sensor.requestPermission === 'function') {
+      tiltButton.hidden = false;
+      tiltButton.addEventListener('click', async () => {
+        try {
+          if (await sensor.requestPermission() === 'granted') {
+            listenForTilt();
+            hint.textContent = 'Tilt your phone to move the constellation';
+            tiltButton.hidden = true;
+          } else {
+            hint.textContent = 'Automatic orbit · tilt access was not enabled';
+          }
+        } catch {
+          hint.textContent = 'Automatic orbit · tilt is unavailable in this browser';
+        }
+      });
+    } else listenForTilt();
+  }
+  window.addEventListener('orientationchange', () => { baseline = null; target.x = target.y = 0; });
   function draw() {
     nodes.forEach(node => {
       const x = node.x * Math.cos(angle) + node.z * Math.sin(angle);
       const z = -node.x * Math.sin(angle) + node.z * Math.cos(angle);
-      const y = node.y * Math.cos(.2) - z * Math.sin(.2);
-      const scale = 650 / (650 + z);
+      const y = node.y * Math.cos(pitch) - z * Math.sin(pitch);
+      const depth = node.y * Math.sin(pitch) + z * Math.cos(pitch);
+      const scale = 650 / (650 + depth);
       node.px = 320 + x * scale; node.py = 225 + y * scale;
       node.el.setAttribute('transform', `translate(${node.px.toFixed(2)} ${node.py.toFixed(2)})`);
       node.el.style.opacity = node.label ? 1 : Math.max(.3, Math.min(1, scale - .2));
@@ -57,9 +110,15 @@
   }
   function tick(time) {
     frame = null;
-    if (last !== null) elapsed += Math.min(time - last, 50);
-    // A bounded orbit gives depth without turning labels into an unreadable edge-on view.
-    angle = -.18 + Math.sin(elapsed * .00016) * .4;
+    const delta = last === null ? 0 : Math.min(time - last, 50);
+    elapsed += delta;
+    const easing = 1 - Math.exp(-delta / 180);
+    input.x += (target.x - input.x) * easing;
+    input.y += (target.y - input.y) * easing;
+    // Always orbit by default; reduced-motion settings soften speed and input travel.
+    const strength = motion.matches ? .2 : 1;
+    angle = -.18 + Math.sin(elapsed * .00022 * strength) * .48 + input.x * .42 * strength;
+    pitch = .2 + Math.sin(elapsed * .00017 * strength) * .12 + input.y * .3 * strength;
     last = time; draw(); frame = requestAnimationFrame(tick);
   }
   function sync() {
@@ -71,7 +130,6 @@
   }
   button.hidden = false;
   button.addEventListener('click', () => { paused = !paused; sync(); });
-  motion.addEventListener('change', () => { paused = motion.matches; sync(); });
   document.addEventListener('visibilitychange', sync);
   if ('IntersectionObserver' in window) new IntersectionObserver(entries => { visible = entries[0].isIntersecting; sync(); }).observe(panel);
   draw(); panel.classList.add('graph-ready'); sync();
