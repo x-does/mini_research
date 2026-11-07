@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="An open field for small websites, research, and digital experiments. Follow an idea and see where it leads.">
+  <meta name="theme-color" content="#f6f5ef">
+  <title>Mini Research — An open field for ideas</title>
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/style.css">
+  <script src="assets/app.js" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#explore">Skip to projects</a>
+  <header class="site-header wrap">
+    <a class="wordmark" href="./" aria-label="Mini Research home"><span class="brand-symbol" aria-hidden="true">✳</span> mini research<span class="wordmark-dot">.</span></a>
+    <nav aria-label="Main navigation"><a class="active" href="#explore">Explore <span>↗</span></a><a href="research/">Field notes</a><a href="https://github.com/x-does/mini_research">GitHub <span>↗</span></a></nav>
+  </header>
+  <main>
+    <section class="hero wrap" aria-labelledby="hero-title">
+      <div class="eyebrow"><span class="status-dot"></span> A PERSONAL LAB, OPEN TO EVERYONE</div>
+      <h1 id="hero-title">Small ideas.<br><em>Endless connections.</em><span class="title-star" aria-hidden="true">✳</span></h1>
+      <div class="hero-bottom"><p>A growing collection of research, little websites, and digital<br class="desktop-break"> experiments. A place to follow curiosity, one idea at a time.</p><a class="text-link" href="#explore">Find a thread to follow <span>↓</span></a></div>
+    </section>
+    <section class="explore wrap" id="explore" aria-labelledby="explore-title">
+      <div class="section-top"><div><span class="eyebrow">THE IDEA ATLAS</span><h2 id="explore-title">Everything starts somewhere.</h2></div><span class="collection-count">01 published exploration <span aria-hidden="true">↙</span></span></div>
+      <div class="toolbar" hidden id="toolbar">
+        <label class="search-box"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 5 5"/></svg><input id="search" type="search" placeholder="Search ideas, topics, or tags…" aria-label="Search projects"></label>
+        <div class="view-switch" role="group" aria-label="Project view"><button type="button" data-view="map" aria-pressed="true"><span aria-hidden="true">⌘</span> Map</button><button type="button" data-view="list" aria-pressed="false"><span aria-hidden="true">☷</span> List</button></div>
+      </div>
+      <div class="filter-row" id="filters" hidden><div class="filters" role="group" aria-label="Filter by category"><button data-filter="all" aria-pressed="true">All ideas <span>1</span></button><button data-filter="research" aria-pressed="false">Research</button><button data-filter="interfaces" aria-pressed="false">Interfaces</button><button data-filter="experiments" aria-pressed="false">Experiments</button></div><span class="result-count" id="result-count" role="status" aria-live="polite">1 exploration to discover</span></div>
+      <div class="atlas" id="atlas">
+        <div class="map-decoration" aria-hidden="true"><svg viewBox="0 0 1100 490" preserveAspectRatio="none"><path class="connection green" d="M550 245 C420 245 440 120 292 120"/><path class="connection" d="M550 245 C725 245 680 110 855 110"/><path class="connection" d="M550 245 C730 245 685 365 830 365"/><path class="connection" d="M550 245 C400 245 445 380 270 380"/><circle cx="550" cy="245" r="78" class="orbit"/><circle cx="550" cy="245" r="100" class="orbit outer"/></svg></div>
+        <div class="map-label">A FEW THREADS. A WORLD OF POSSIBILITIES.</div>
+        <div class="atlas-center" aria-hidden="true"><span>✳</span><strong>curiosity</strong><small>it all connects here</small></div>
+        <article class="project-node" id="project-origin" data-category="research" data-search="the making of mini research design static github pages accessibility knowledge graph origin">
+          <a class="project-link" href="research/"><div class="node-heading"><span class="node-icon" aria-hidden="true">⌁</span><span class="tag">RESEARCH · 001</span><span class="node-arrow" aria-hidden="true">↗</span></div><h3>The making of<br>Mini Research</h3><p>A small place for big curiosity.<br>The thinking behind this very site.</p><div class="node-footer"><span><span class="status-dot"></span> Published</span><span>6 min read</span></div></a>
+        </article>
+        <div class="future-node future-interface"><span class="future-icon" aria-hidden="true">▦</span><div><strong>Interfaces & little shops</strong><span>A direction to explore</span></div><span class="future-plus" aria-hidden="true">+</span></div>
+        <div class="future-node future-experiment"><span class="future-icon" aria-hidden="true">✧</span><div><strong>What if…?</strong><span>Room for an experiment</span></div><span class="future-plus" aria-hidden="true">+</span></div>
+        <div class="map-note"><span aria-hidden="true">↳</span> The next connection is still unwritten.</div>
+        <div class="map-legend"><span><i class="live-dot"></i> Published idea</span><span><i class="future-dot"></i> Possible direction</span><span class="legend-edge">Lines connect ideas to curiosity</span></div>
+      </div>
+      <div class="empty-state" id="empty-state" hidden><span aria-hidden="true">⌕</span><h3>No threads found. Yet.</h3><p id="empty-description">This corner of the atlas is still waiting for its first idea.</p><button class="text-link" id="reset" type="button">Explore all ideas <span>↗</span></button></div>
+      <noscript><p class="noscript-note">The research page is ready to explore above. Enable JavaScript to search or switch views.</p></noscript>
+      <div class="atlas-caption"><span><span class="tiny-star" aria-hidden="true">✳</span> A living collection, not a finished thing.</span><span>Made to grow in unexpected directions.</span></div>
+    </section>
+    <section class="manifesto wrap" aria-labelledby="manifesto-title"><div class="eyebrow">A NOTE ON THIS SPACE</div><div><h2 id="manifesto-title">Not every idea needs a startup.<br>Sometimes, it just needs <em>a webpage.</em></h2><p>A question worth exploring. A shop that only exists in your head. A bit of data that makes more sense when you can see it. This is a home for all of it.</p><a class="text-link" href="research/">Read the story behind the site <span>↗</span></a></div><span class="manifesto-doodle" aria-hidden="true">✴</span></section>
+  </main>
+  <footer class="site-footer wrap"><a class="wordmark" href="./"><span class="brand-symbol" aria-hidden="true">✳</span> mini research.</a><span>Independently curious. Intentionally unfinished.</span><a href="https://github.com/x-does/mini_research">Open source on GitHub ↗</a></footer>
+</body>
+</html>
