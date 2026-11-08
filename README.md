@@ -4,6 +4,8 @@ A static, independent collection of research, small websites, and digital experi
 
 ## Research notes
 
+- [Beyond the Hive](research/hive-alternatives/) — five non-insect rethemes, 25 illustrated piece concepts and an untested design brief for a 0.8 mm nozzle. Authored directly in HTML; no renderer or print files.
+
 - [Free compute for a personal, agentic small language model](research/gpu-credits/) — verified credit offers and a deployment plan for devices below 8 GB RAM.
 - [Accounts and access checklist](research/gpu-credits/accounts.html) — signup links, training-environment authentication and private-data handoff steps.
 

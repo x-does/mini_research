@@ -16,13 +16,14 @@
     {label: 'Static publishing', x: 130, y: 113, z: 50, color: 2},
     {label: 'The source', x: -140, y: 104, z: -55, color: 3},
     {label: 'Field note 001', x: 40, y: -15, z: 125, color: 0},
-    {label: 'GPU credits', x: -65, y: 145, z: 80, color: 1}
+    {label: 'GPU credits', x: -65, y: 145, z: 80, color: 1},
+    {label: 'Beyond the Hive', x: 65, y: 110, z: -140, color: 1}
   ];
   for (let i = 0; i < 30; i++) {
     const cluster = i % 4 + 1, parent = nodes[cluster], angle = i * 2.39996;
     nodes.push({x: parent.x + Math.cos(angle) * (35 + i % 4 * 13), y: parent.y + Math.sin(angle) * (30 + i % 3 * 14), z: Math.sin(i * 1.7) * 100, color: parent.color, parent: cluster});
   }
-  const links = [[0,6],[5,6],[0,1],[0,2],[0,3],[0,4],[0,5],[1,5],[2,5],[3,5],[3,4]];
+  const links = [[0,7],[1,7],[0,6],[5,6],[0,1],[0,2],[0,3],[0,4],[0,5],[1,5],[2,5],[3,5],[3,4]];
   nodes.forEach((node, i) => { if (node.parent) { links.push([node.parent, i]); if (i > 9) links.push([i, i - 4]); } });
   function element(tag, attributes, parent) {
     const el = document.createElementNS(ns, tag);
