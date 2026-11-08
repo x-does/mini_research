@@ -1,0 +1,152 @@
+{
+  "rounded-queen": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15622.92,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "rounded-ant": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15605.97,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "rounded-beetle": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15656.99,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "rounded-grasshopper": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15638.89,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "rounded-spider": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15631.82,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "faceted-queen": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15600.67,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "faceted-ant": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15588.5,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "faceted-beetle": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15627.97,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "faceted-grasshopper": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15623.4,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "faceted-spider": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15613.66,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "terraced-queen": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15647.95,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "terraced-ant": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15627.27,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "terraced-beetle": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15686.11,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "terraced-grasshopper": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15662.6,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  },
+  "terraced-spider": {
+    "vertices": 24002,
+    "triangles": 48000,
+    "volume_mm3": 15658.7,
+    "manifold": true,
+    "consistent_winding": true,
+    "height_mm": 15,
+    "corner_diameter_mm": 50,
+    "minimum_faceted_socket_radial_clearance_mm": 0.797
+  }
+}
